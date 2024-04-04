@@ -1,4 +1,4 @@
-# Job-Title-job-title-suggestion
+# Job-Title-suggestion
 To run this program, follow the following instructions:
 - Clone the repository to your local machine
 - Open your terminal in the repository file path
