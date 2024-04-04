@@ -2,7 +2,7 @@
 
 ## How to install 
 </div>
-To run this program, follow the following instructions:
+Follow these steps to set up the environment and run the application.
 
 1. Clone this repository to your local machine
 2. Create a Python Virtual Environment using the following command:
@@ -37,7 +37,7 @@ To run this program, follow the following instructions:
      ```bash
      pip install -r requirements.txt
      ```
-5.Run the application using the following command:
+5. Run the application using the following command:
      ```bash
      python app.py data/sampleResume.pdf
      ```
