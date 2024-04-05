@@ -1,43 +1,44 @@
 import argparse
 from transformers import AutoModelForQuestionAnswering, AutoTokenizer, pipeline
 import PyPDF2
-import sys
 
 
 def read_pdf(file_path):
     try:
         with open(file_path, "rb") as pdf_file:
             pdf_reader = PyPDF2.PdfReader(pdf_file)
-            num_pages = len(pdf_reader.pages)
-
-            for page_num in range(num_pages):
-                page = pdf_reader.pages[page_num]
-                page_text = page.extract_text()
-
+            page_text = ""
+            for page in pdf_reader.pages:
+                page_text += page.extract_text()
+        return page_text
     except FileNotFoundError:
         print(f"Error: File '{file_path}' not found.")
-
-    return page_text
-
-
-def answer_question(context, question):
-    inputs = {"context": context, "question": question}
-    result = qa_pipeline(inputs)
-    return result["answer"]
+        return None
 
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python app.py <path_to_CV>")
-    else:
-        CV_path = sys.argv[1]
-        read_pdf(CV_path)
-        context = read_pdf(CV_path)
-        question = "what is the best job title that would be suitable for this person?"
-        # Load the model and tokenizer
-        model_name = "deepset/roberta-base-squad2"
+def answer_question(context, question, model_name="deepset/roberta-base-squad2"):
+    try:
         model = AutoModelForQuestionAnswering.from_pretrained(model_name)
         tokenizer = AutoTokenizer.from_pretrained(model_name)
         qa_pipeline = pipeline("question-answering", model=model, tokenizer=tokenizer)
-        answer = answer_question(context, question)
-        print("The best job title that would be suitable for this person is:", answer)
+        result = qa_pipeline({"context": context, "question": question})
+        return result["answer"]
+    except Exception as e:
+        print(f"Error  using the model: {e}")
+        return None
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Analyze CV and suggest job title")
+    parser.add_argument("CV_path", help="Path to the CV (PDF file)")
+    args = parser.parse_args()
+
+    CV_text = read_pdf(args.CV_path)
+    if CV_text:
+        question = "What is the best job title that fits the candidate?"
+        suggested_title = answer_question(CV_text, question)
+        if suggested_title:
+            print(
+                f"The best job title that would be suitable for this person is: {suggested_title}"
+            )
+
