@@ -57,11 +57,13 @@ Follow these steps to set up the environment and run the application.
      ```bash
      pip install -r requirements.txt
      ```
-5. Run the application using the following command:
+5. Upload a sample resume to be analyzed in the data folder.
+   
+7. Run the application using the following command:
      ```bash
      python app.py data/sampleResume.pdf
      ```
-6. If you encounter toch error, try to run the following command:
+8. If you encounter toch error, try to run the following command:
      ```bash
      pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
      ```
