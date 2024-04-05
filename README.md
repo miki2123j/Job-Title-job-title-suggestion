@@ -5,9 +5,9 @@
 - This application aims to analyze the content of a PDF file (typically a CV or resume) and recommend an appropriate job title based on the extracted information.
 2. Workflow:
 - The application follows these steps:
- 1. Read the specified PDF file.
- 2. Extract the text content from the PDF.
- 3. Uses a pre-trained question-answering model to answer the question: “What is the best job title that would be suitable for this person?”
+ -  Read the specified PDF file.
+ -  Extract the text content from the PDF.
+ -  Uses a pre-trained question-answering model to answer the question: “What is the best job title that would be suitable for this person?”
 3. Libraries Used:
 - The script utilizes the following Python libraries:
    1. argparse: For handling command-line arguments.
